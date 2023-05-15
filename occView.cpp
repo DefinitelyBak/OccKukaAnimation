@@ -23,6 +23,10 @@
 #include <Aspect_Handle.hxx>
 #include <Aspect_DisplayConnection.hxx>
 
+#include <AIS_Shape.hxx>
+#include <AIS_Animation.hxx>
+#include <AIS_AnimationObject.hxx>
+
 #ifdef WNT
     #include <WNT_Window.hxx>
 #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
@@ -434,3 +438,30 @@ void OccView::panByMiddleButton( const QPoint& thePoint )
 
     myView->Pan(aCenterX - thePoint.x(), thePoint.y() - aCenterY);
 }
+
+
+void OccView::animation(Handle(AIS_Shape) anAisBox){
+    gp_Trsf start_pnt, end_pnt;
+
+    start_pnt.SetValues(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0);
+    end_pnt.SetValues(1, 0, 0, 100, 0, 1, 0, 100, 0, 0, 1, 100);
+
+    Handle(AIS_Animation) ais_animation = new AIS_Animation("obj1");
+    Handle(AIS_AnimationObject) ais_ao = new AIS_AnimationObject("obj1", getContext(), anAisBox, start_pnt, end_pnt);
+    ais_ao->SetOwnDuration(10);
+    ais_ao->SetStartPts(0);
+
+    ais_animation->Add(ais_ao);
+
+    double duration = ais_animation->Duration();
+
+    ais_animation->StartTimer(0, 1.0, true);
+
+    while (!ais_animation->IsStopped())
+    {
+        ais_animation->UpdateTimer();
+
+        getContext()->UpdateCurrentViewer();
+    }
+}
+

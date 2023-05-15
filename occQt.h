@@ -16,6 +16,8 @@
 
 #include <AIS_InteractiveContext.hxx>
 
+#include <AIS_Shape.hxx>
+
 class OccView;
 
 //! Qt main window which include OpenCASCADE for its central widget.

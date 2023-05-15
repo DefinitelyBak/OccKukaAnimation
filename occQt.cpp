@@ -61,9 +61,7 @@
 #include <BRepAlgoAPI_Fuse.hxx>
 #include <BRepAlgoAPI_Common.hxx>
 
-#include <AIS_Shape.hxx>
-#include <AIS_Animation.hxx>
-#include <AIS_AnimationObject.hxx>
+
 
 occQt::occQt(QWidget *parent)
     : QMainWindow(parent)
@@ -178,28 +176,7 @@ void occQt::makeBox()
 
     myOccView->getContext()->Display(anAisBox, Standard_True);
 
-    gp_Trsf start_pnt, end_pnt;
-
-    start_pnt.SetValues(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0);
-    end_pnt.SetValues(1, 0, 0, 100, 0, 1, 0, 100, 0, 0, 1, 100);
-
-    Handle(AIS_Animation) ais_animation = new AIS_Animation("obj1");
-    Handle(AIS_AnimationObject) ais_ao = new AIS_AnimationObject("obj1", myOccView->getContext(), anAisBox, start_pnt, end_pnt);
-    ais_ao->SetOwnDuration(10);
-    ais_ao->SetStartPts(0);
-
-    ais_animation->Add(ais_ao);
-
-    double duration = ais_animation->Duration();
-
-    ais_animation->StartTimer(0, 1.0, true);
-
-    while (!ais_animation->IsStopped())
-    {
-        ais_animation->UpdateTimer();
-
-        myOccView->getContext()->UpdateCurrentViewer();
-    }
+    myOccView->animation(anAisBox);
 
 }
 
@@ -219,8 +196,11 @@ void occQt::makeCone()
 
     anAisCone->SetColor(Quantity_NOC_CHOCOLATE);
 
-    //myOccView->getContext()->Display(anAisReducer, Standard_True);
-    //myOccView->getContext()->Display(anAisCone, Standard_True);
+    myOccView->getContext()->Display(anAisReducer, Standard_True);
+    myOccView->getContext()->Display(anAisCone, Standard_True);
+
+    myOccView->animation(anAisReducer);
+    myOccView->animation(anAisCone);
 }
 
 void occQt::makeSphere()
@@ -233,7 +213,9 @@ void occQt::makeSphere()
 
     anAisSphere->SetColor(Quantity_NOC_BLUE1);
 
-    //myOccView->getContext()->Display(anAisSphere, Standard_True);
+    myOccView->getContext()->Display(anAisSphere, Standard_True);
+
+    myOccView->animation(anAisSphere);
 }
 
 void occQt::makeCylinder()
@@ -252,8 +234,11 @@ void occQt::makeCylinder()
 
     anAisPie->SetColor(Quantity_NOC_TAN);
 
-    //myOccView->getContext()->Display(anAisCylinder, Standard_True);
-    //myOccView->getContext()->Display(anAisPie, Standard_True);
+    myOccView->getContext()->Display(anAisCylinder, Standard_True);
+    myOccView->getContext()->Display(anAisPie, Standard_True);
+
+    myOccView->animation(anAisCylinder);
+    myOccView->animation(anAisPie);
 }
 
 void occQt::makeTorus()
@@ -271,10 +256,12 @@ void occQt::makeTorus()
     Handle(AIS_Shape) anAisElbow = new AIS_Shape(aTopoElbow);
 
     anAisElbow->SetColor(Quantity_NOC_THISTLE);
-/*
+
     myOccView->getContext()->Display(anAisTorus, Standard_True);
     myOccView->getContext()->Display(anAisElbow, Standard_True);
-*/
+
+    myOccView->animation(anAisTorus);
+    myOccView->animation(anAisElbow);
 }
 
 void occQt::makeFillet()
@@ -294,7 +281,9 @@ void occQt::makeFillet()
     Handle(AIS_Shape) anAisShape = new AIS_Shape(MF.Shape());
     anAisShape->SetColor(Quantity_NOC_VIOLET);
 
-    //myOccView->getContext()->Display(anAisShape, Standard_True);
+    myOccView->getContext()->Display(anAisShape, Standard_True);
+
+    myOccView->animation(anAisShape);
 }
 
 void occQt::makeChamfer()
@@ -319,7 +308,8 @@ void occQt::makeChamfer()
     Handle(AIS_Shape) anAisShape = new AIS_Shape(MC.Shape());
     anAisShape->SetColor(Quantity_NOC_TOMATO);
 
-    //myOccView->getContext()->Display(anAisShape, Standard_True);
+    myOccView->getContext()->Display(anAisShape, Standard_True);
+    myOccView->animation(anAisShape);
 }
 
 void occQt::makeExtrude()
@@ -356,12 +346,16 @@ void occQt::makeExtrude()
     anAisPrismCircle->SetColor(Quantity_NOC_PERU);
     anAisPrismEllipse->SetColor(Quantity_NOC_PINK);
 
-    /*
+
     myOccView->getContext()->Display(anAisPrismVertex, Standard_True);
     myOccView->getContext()->Display(anAisPrismEdge, Standard_True);
     myOccView->getContext()->Display(anAisPrismCircle, Standard_True);
     myOccView->getContext()->Display(anAisPrismEllipse, Standard_True);
-*/
+
+    myOccView->animation(anAisPrismVertex);
+    myOccView->animation(anAisPrismEdge);
+    myOccView->animation(anAisPrismCircle);
+    myOccView->animation(anAisPrismEllipse);
 }
 
 void occQt::makeRevol()
@@ -403,12 +397,16 @@ void occQt::makeRevol()
     anAisRevolEdge->SetColor(Quantity_NOC_LINEN);
     anAisRevolCircle->SetColor(Quantity_NOC_MAGENTA1);
     anAisRevolEllipse->SetColor(Quantity_NOC_MAROON);
-/*
+
     myOccView->getContext()->Display(anAisRevolVertex, Standard_True);
     myOccView->getContext()->Display(anAisRevolEdge, Standard_True);
     myOccView->getContext()->Display(anAisRevolCircle, Standard_True);
     myOccView->getContext()->Display(anAisRevolEllipse, Standard_True);
-*/
+
+    myOccView->animation(anAisRevolVertex);
+    myOccView->animation(anAisRevolEdge);
+    myOccView->animation(anAisRevolCircle);
+    myOccView->animation(anAisRevolEllipse);
 }
 
 void occQt::makeLoft()
@@ -444,10 +442,13 @@ void occQt::makeLoft()
 
     anAisShell->SetColor(Quantity_NOC_OLIVEDRAB);
     anAisSolid->SetColor(Quantity_NOC_PEACHPUFF);
-/*
+
     myOccView->getContext()->Display(anAisShell, Standard_True);
     myOccView->getContext()->Display(anAisSolid, Standard_True);
-*/
+
+    myOccView->animation(anAisShell);
+    myOccView->animation(anAisSolid);
+
 }
 
 void occQt::testCut()
@@ -476,12 +477,16 @@ void occQt::testCut()
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
     anAisCuttedShape1->SetColor(Quantity_NOC_TAN);
     anAisCuttedShape2->SetColor(Quantity_NOC_SALMON);
-/*
+
     myOccView->getContext()->Display(anAisBox, Standard_True);
     myOccView->getContext()->Display(anAisSphere, Standard_True);
     myOccView->getContext()->Display(anAisCuttedShape1, Standard_True);
     myOccView->getContext()->Display(anAisCuttedShape2, Standard_True);
-*/
+
+    myOccView->animation(anAisBox);
+    myOccView->animation(anAisSphere);
+    myOccView->animation(anAisCuttedShape1);
+    myOccView->animation(anAisCuttedShape2);
 }
 
 void occQt::testFuse()
@@ -504,11 +509,14 @@ void occQt::testFuse()
     anAisBox->SetColor(Quantity_NOC_SPRINGGREEN);
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
     anAisFusedShape->SetColor(Quantity_NOC_ROSYBROWN);
-/*
+
     myOccView->getContext()->Display(anAisBox, Standard_True);
     myOccView->getContext()->Display(anAisSphere, Standard_True);
     myOccView->getContext()->Display(anAisFusedShape, Standard_True);
-*/
+
+    myOccView->animation(anAisBox);
+    myOccView->animation(anAisSphere);
+    myOccView->animation(anAisFusedShape);
 }
 
 void occQt::testCommon()
@@ -531,11 +539,14 @@ void occQt::testCommon()
     anAisBox->SetColor(Quantity_NOC_SPRINGGREEN);
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
     anAisCommonShape->SetColor(Quantity_NOC_ROYALBLUE);
-/*
+
     myOccView->getContext()->Display(anAisBox, Standard_True);
     myOccView->getContext()->Display(anAisSphere, Standard_True);
     myOccView->getContext()->Display(anAisCommonShape, Standard_True);
-*/
+
+    myOccView->animation(anAisBox);
+    myOccView->animation(anAisSphere);
+    myOccView->animation(anAisCommonShape);
 }
 
 void occQt::testHelix()
@@ -567,7 +578,9 @@ void occQt::makeCylindricalHelix()
 
     Handle(AIS_Shape) anAisHelixCurve = new AIS_Shape(aTransform.Shape());
 
-    //myOccView->getContext()->Display(anAisHelixCurve, Standard_True);
+    myOccView->getContext()->Display(anAisHelixCurve, Standard_True);
+
+    myOccView->animation(anAisHelixCurve);
 
     // sweep a circle profile along the helix curve.
     // there is no curve3d in the pcurve edge, so approx one.
@@ -594,7 +607,9 @@ void occQt::makeCylindricalHelix()
 
         Handle(AIS_Shape) anAisPipe = new AIS_Shape(aPipeTransform.Shape());
         anAisPipe->SetColor(Quantity_NOC_CORAL);
-        //myOccView->getContext()->Display(anAisPipe, Standard_True);
+        myOccView->getContext()->Display(anAisPipe, Standard_True);
+
+        myOccView->animation(anAisPipe);
     }
 }
 
@@ -622,7 +637,9 @@ void occQt::makeConicalHelix()
 
     Handle(AIS_Shape) anAisHelixCurve = new AIS_Shape(aTransform.Shape());
 
-    //myOccView->getContext()->Display(anAisHelixCurve, Standard_True);
+    myOccView->getContext()->Display(anAisHelixCurve, Standard_True);
+
+    myOccView->animation(anAisHelixCurve);
 
     // sweep a circle profile along the helix curve.
     // there is no curve3d in the pcurve edge, so approx one.
@@ -649,7 +666,8 @@ void occQt::makeConicalHelix()
 
         Handle(AIS_Shape) anAisPipe = new AIS_Shape(aPipeTransform.Shape());
         anAisPipe->SetColor(Quantity_NOC_DARKGOLDENROD);
-        //myOccView->getContext()->Display(anAisPipe, Standard_True);
+        myOccView->getContext()->Display(anAisPipe, Standard_True);
+        myOccView->animation(anAisPipe);
     }
 }
 
@@ -673,7 +691,8 @@ void occQt::makeToroidalHelix()
 
     Handle(AIS_Shape) anAisHelixCurve = new AIS_Shape(aTransform.Shape());
 
-    //myOccView->getContext()->Display(anAisHelixCurve, Standard_True);
+    myOccView->getContext()->Display(anAisHelixCurve, Standard_True);
+    myOccView->animation(anAisHelixCurve);
 
     // sweep a circle profile along the helix curve.
     // there is no curve3d in the pcurve edge, so approx one.
@@ -700,6 +719,7 @@ void occQt::makeToroidalHelix()
 
         Handle(AIS_Shape) anAisPipe = new AIS_Shape(aPipeTransform.Shape());
         anAisPipe->SetColor(Quantity_NOC_CORNSILK1);
-        //myOccView->getContext()->Display(anAisPipe, Standard_True);
+        myOccView->getContext()->Display(anAisPipe, Standard_True);
+        myOccView->animation(anAisPipe);
     }
 }

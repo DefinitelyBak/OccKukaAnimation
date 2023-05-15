@@ -16,6 +16,8 @@
 
 #include <AIS_InteractiveContext.hxx>
 
+#include <AIS_Shape.hxx>
+
 class QMenu;
 class QRubberBand;
 
@@ -41,6 +43,7 @@ public:
     OccView(QWidget* parent);
 
     const Handle(AIS_InteractiveContext)& getContext() const;
+    void animation(Handle(AIS_Shape) anAisBox);
 
 signals:
     void selectionChanged(void);
