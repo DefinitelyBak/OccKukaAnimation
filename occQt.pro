@@ -12,12 +12,14 @@ TARGET = occQt
 TEMPLATE = app
 
 SOURCES += main.cpp \
+    myanimation.cpp \
     occQt.cpp       \
     occView.cpp
 
 CONFIG += c++11
 
 HEADERS  += \
+    myanimation.h \
     occQt.h \
     occView.h
 
@@ -25,7 +27,7 @@ FORMS    += \
     occQt.ui
 
 RESOURCES += \
-    occqt.qrc
+    .qrc
 
 CASROOT = "D:/Programs/OpenCASCADE-7.7.0-vc14-64/opencascade-7.7.0"
 
@@ -47,4 +49,11 @@ LIBS +=         \
     -lTKService \
     -lTKV3d     \
     -lTKOpenGl  \
-    -lTKFillet
+    -lTKFillet  \
+    -lTKernel -lTKMath -lTKService -lTKV3d -lTKOpenGl \
+            -lTKBRep -lTKIGES -lTKSTL -lTKVRML -lTKSTEP -lTKSTEPAttr -lTKSTEP209 \
+            -lTKSTEPBase -lTKGeomBase -lTKGeomAlgo -lTKG3d -lTKG2d \
+            -lTKXSBase -lTKShHealing -lTKHLR -lTKTopAlgo -lTKMesh -lTKPrim \
+            -lTKCDF -lTKBool -lTKBO -lTKFillet -lTKOffset \
+            -lTKXDESTEP \
+

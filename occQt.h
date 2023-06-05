@@ -18,7 +18,34 @@
 
 #include <AIS_Shape.hxx>
 
+#include <QThread>
+#include <QTimer>
+
 class OccView;
+
+class Thread: public QThread{
+    Q_OBJECT
+public:
+    Thread(OccView* view, Handle(AIS_Shape) AIS_0,
+           Handle(AIS_Shape) AIS_1, int TIME);
+
+    void run();
+
+private:
+    OccView* myView;
+    Handle(AIS_Shape) ais0, ais1;
+
+    QTimer timer;
+
+    gp_Trsf myTrsf0, myTrsf1;
+
+
+    int count = 0;
+    int i = 0;
+private slots:
+    void UP();
+};
+
 
 //! Qt main window which include OpenCASCADE for its central widget.
 class occQt : public QMainWindow
@@ -100,6 +127,8 @@ private:
 
     // wrapped the widget for occ.
     OccView* myOccView;
+
+    QThread* t1;
 };
 
 #endif // OCCQT_H

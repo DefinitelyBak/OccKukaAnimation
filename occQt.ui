@@ -14,7 +14,7 @@
    <string>occQt</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="occqt.qrc">
+   <iconset resource=".qrc">
     <normaloff>:/Resources/lamp.png</normaloff>:/Resources/lamp.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -96,7 +96,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/Zoom.png</normaloff>:/Resources/Zoom.png</iconset>
    </property>
    <property name="text">
@@ -108,7 +108,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/Pan.png</normaloff>:/Resources/Pan.png</iconset>
    </property>
    <property name="text">
@@ -123,7 +123,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/Rotate.png</normaloff>:/Resources/Rotate.png</iconset>
    </property>
    <property name="text">
@@ -132,7 +132,7 @@
   </action>
   <action name="actionReset">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/Home.png</normaloff>:/Resources/Home.png</iconset>
    </property>
    <property name="text">
@@ -141,7 +141,7 @@
   </action>
   <action name="actionFitAll">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/FitAll.png</normaloff>:/Resources/FitAll.png</iconset>
    </property>
    <property name="text">
@@ -150,7 +150,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/lamp.png</normaloff>:/Resources/lamp.png</iconset>
    </property>
    <property name="text">
@@ -159,7 +159,7 @@
   </action>
   <action name="actionBox">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/box.png</normaloff>:/Resources/box.png</iconset>
    </property>
    <property name="text">
@@ -168,7 +168,7 @@
   </action>
   <action name="actionCone">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/cone.png</normaloff>:/Resources/cone.png</iconset>
    </property>
    <property name="text">
@@ -177,7 +177,7 @@
   </action>
   <action name="actionSphere">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/sphere.png</normaloff>:/Resources/sphere.png</iconset>
    </property>
    <property name="text">
@@ -186,7 +186,7 @@
   </action>
   <action name="actionCylinder">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/cylinder.png</normaloff>:/Resources/cylinder.png</iconset>
    </property>
    <property name="text">
@@ -195,7 +195,7 @@
   </action>
   <action name="actionTorus">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/torus.png</normaloff>:/Resources/torus.png</iconset>
    </property>
    <property name="text">
@@ -204,7 +204,7 @@
   </action>
   <action name="actionFillet">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/fillet.png</normaloff>:/Resources/fillet.png</iconset>
    </property>
    <property name="text">
@@ -213,7 +213,7 @@
   </action>
   <action name="actionChamfer">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/chamfer.png</normaloff>:/Resources/chamfer.png</iconset>
    </property>
    <property name="text">
@@ -222,7 +222,7 @@
   </action>
   <action name="actionExtrude">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/extrude.png</normaloff>:/Resources/extrude.png</iconset>
    </property>
    <property name="text">
@@ -231,7 +231,7 @@
   </action>
   <action name="actionRevolve">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/revolve.png</normaloff>:/Resources/revolve.png</iconset>
    </property>
    <property name="text">
@@ -240,7 +240,7 @@
   </action>
   <action name="actionLoft">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/loft.png</normaloff>:/Resources/loft.png</iconset>
    </property>
    <property name="text">
@@ -249,7 +249,7 @@
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/cut.png</normaloff>:/Resources/cut.png</iconset>
    </property>
    <property name="text">
@@ -258,7 +258,7 @@
   </action>
   <action name="actionFuse">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/fuse.png</normaloff>:/Resources/fuse.png</iconset>
    </property>
    <property name="text">
@@ -267,7 +267,7 @@
   </action>
   <action name="actionCommon">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/common.png</normaloff>:/Resources/common.png</iconset>
    </property>
    <property name="text">
@@ -276,7 +276,7 @@
   </action>
   <action name="actionHelix">
    <property name="icon">
-    <iconset resource="occqt.qrc">
+    <iconset resource=".qrc">
      <normaloff>:/Resources/helix.png</normaloff>:/Resources/helix.png</iconset>
    </property>
    <property name="text">
@@ -286,7 +286,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="occqt.qrc"/>
+  <include location=".qrc"/>
  </resources>
  <connections/>
 </ui>

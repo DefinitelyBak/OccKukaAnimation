@@ -10,6 +10,7 @@
 */
 
 #include "occQt.h"
+#include "V3d_Viewer.hxx"
 #include "occView.h"
 
 #include <QToolBar>
@@ -60,6 +61,40 @@
 #include <BRepAlgoAPI_Cut.hxx>
 #include <BRepAlgoAPI_Fuse.hxx>
 #include <BRepAlgoAPI_Common.hxx>
+
+#include <TopoDS_CompSolid.hxx>
+
+#include <AIS_Animation.hxx>
+#include <AIS_AnimationObject.hxx>
+
+
+Thread::Thread(OccView* view, Handle(AIS_Shape) AIS_0,
+               Handle(AIS_Shape) AIS_1, int TIME): myView(view), ais0(AIS_0),
+    ais1(AIS_1), count(TIME)
+{
+    connect(&timer, &QTimer::timeout, this, &Thread::UP);
+}
+
+void Thread::run(){
+    timer.start(1000/60);
+
+    while(i < count){}
+}
+
+void Thread::UP(){
+
+    myTrsf0.SetRotation(gp_Ax1(gp_Pnt(1.5,0,0),gp_Dir(0,1,0)), 300 * M_PI /180);
+    myTrsf1.SetRotation(gp_Ax1(gp_Pnt(0,10.0,0),gp_Dir(0,0,1)),0 * M_PI /180);
+
+    ais0->SetLocalTransformation(myTrsf0);
+    ais1->SetLocalTransformation(myTrsf0*myTrsf1);
+
+    myView->getContext()->CurrentViewer()->Redraw();
+
+    std::cout << "DONE: " << i << std::endl;
+
+    i++;
+}
 
 
 
@@ -169,19 +204,42 @@ void occQt::about()
 
 void occQt::makeBox()
 {
+    myOccView->deg_joint1 += 5;
+
+    t1 = new Thread(myOccView,myOccView->ais_shape0,myOccView->ais_shape1,600);
+    t1->start();
+    //myOccView->update_joint_slider();
+
+    /*
     TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(3.0, 4.0, 5.0).Shape();
-    Handle(AIS_Shape) anAisBox = new AIS_Shape(aTopoBox);
+    gp_Ax2 anAxis;
+    anAxis.SetLocation(gp_Pnt(0.0, 10.0, 0.0));
+    TopoDS_Shape bTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 10.0).Shape();
+
+    TopoDS_Compound aRes;
+    BRep_Builder aBuilder;
+    aBuilder.MakeCompound (aRes);
+    aBuilder.Add (aRes, aTopoBox);
+    aBuilder.Add (aRes, bTopoBox);
+
+
+
+    Handle(AIS_Shape) anAisBox = new AIS_Shape(aRes);
 
     anAisBox->SetColor(Quantity_NOC_AZURE);
 
     myOccView->getContext()->Display(anAisBox, Standard_True);
 
     myOccView->animation(anAisBox);
-
+*/
 }
 
 void occQt::makeCone()
 {
+
+    myOccView->deg_joint1 -= 5;
+    myOccView->update_joint_slider();
+    /*
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 10.0, 0.0));
 
@@ -201,10 +259,14 @@ void occQt::makeCone()
 
     myOccView->animation(anAisReducer);
     myOccView->animation(anAisCone);
+*/
 }
 
 void occQt::makeSphere()
 {
+    myOccView->deg_joint0 += 5;
+    myOccView->update_joint_slider();
+    /*
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 20.0, 0.0));
 
@@ -216,10 +278,14 @@ void occQt::makeSphere()
     myOccView->getContext()->Display(anAisSphere, Standard_True);
 
     myOccView->animation(anAisSphere);
+*/
 }
 
 void occQt::makeCylinder()
 {
+    myOccView->deg_joint0 -= 5;
+    myOccView->update_joint_slider();
+    /*
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 30.0, 0.0));
 
@@ -239,6 +305,7 @@ void occQt::makeCylinder()
 
     myOccView->animation(anAisCylinder);
     myOccView->animation(anAisPie);
+*/
 }
 
 void occQt::makeTorus()
@@ -259,6 +326,7 @@ void occQt::makeTorus()
 
     myOccView->getContext()->Display(anAisTorus, Standard_True);
     myOccView->getContext()->Display(anAisElbow, Standard_True);
+
 
     myOccView->animation(anAisTorus);
     myOccView->animation(anAisElbow);
