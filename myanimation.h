@@ -33,7 +33,7 @@ public:
     MyAnimation();
 
 private:
-    QTimer timer;
+
 };
 
 #endif // MYANIMATION_H

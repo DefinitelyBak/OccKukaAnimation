@@ -66,34 +66,51 @@
 
 #include <AIS_Animation.hxx>
 #include <AIS_AnimationObject.hxx>
+#include <STEPControl_Reader.hxx>
 
 
-Thread::Thread(OccView* view, Handle(AIS_Shape) AIS_0,
-               Handle(AIS_Shape) AIS_1, int TIME): myView(view), ais0(AIS_0),
+Thread::Thread(OccView* view, AIS_Shape* AIS_0,
+               AIS_Shape* AIS_1, int TIME): myView(view), ais0(AIS_0),
     ais1(AIS_1), count(TIME)
 {
     connect(&timer, &QTimer::timeout, this, &Thread::UP);
+    timer.start(1000/60);
+
+    qDebug() << timer.thread();
 }
 
 void Thread::run(){
-    timer.start(1000/60);
 
-    while(i < count){}
+
+
+    exec();
+    qDebug() << count;
+
+    while(i < count){
+        //qDebug() << "I am work i:" << i;
+    }
+
+    timer.stop();
 }
 
 void Thread::UP(){
 
-    myTrsf0.SetRotation(gp_Ax1(gp_Pnt(1.5,0,0),gp_Dir(0,1,0)), 300 * M_PI /180);
+    myTrsf0.SetRotation(gp_Ax1(gp_Pnt(1.5,0,0),gp_Dir(0,1,0)), i * M_PI /180);
     myTrsf1.SetRotation(gp_Ax1(gp_Pnt(0,10.0,0),gp_Dir(0,0,1)),0 * M_PI /180);
 
     ais0->SetLocalTransformation(myTrsf0);
     ais1->SetLocalTransformation(myTrsf0*myTrsf1);
 
+
+
     myView->getContext()->CurrentViewer()->Redraw();
 
-    std::cout << "DONE: " << i << std::endl;
-
     i++;
+
+    //qDebug() << "puk-puk: i" << i;
+}
+
+Thread::~Thread(){
 }
 
 
@@ -206,9 +223,34 @@ void occQt::makeBox()
 {
     myOccView->deg_joint1 += 5;
 
-    t1 = new Thread(myOccView,myOccView->ais_shape0,myOccView->ais_shape1,600);
-    t1->start();
+
+
+
+    //t1 = new Thread(myOccView, myOccView->ais_shape0.get(), myOccView->ais_shape1.get(), 600);
+
+    //qDebug() << this->thread() << ":::" << t1->thread();
+
+    //t1->start();
     //myOccView->update_joint_slider();
+
+    STEPControl_Reader reader;
+    IFSelect_ReturnStatus stat = reader.ReadFile("C:\\Users\\Halil\\Desktop\\Qtproject\\MyOcc\\robot\\kuka_base.step");
+    IFSelect_PrintCount mode = IFSelect_ListByItem;
+    reader.PrintCheckLoad(false, mode);
+
+    Standard_Integer NbRoots = reader.NbRootsForTransfer();                      //Transfer whole file
+    Standard_Integer num = reader.TransferRoots();
+
+    Standard_Integer NbTrans = reader.TransferRoots();
+    TopoDS_Shape result = reader.OneShape();
+    TopoDS_Shape shape = reader.Shape();
+
+    TopoDS_Shape abc = reader.OneShape();
+
+    Handle(AIS_Shape) brr = new AIS_Shape(abc);
+
+    myOccView->getContext()->Display(brr, Standard_False);
+
 
     /*
     TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(3.0, 4.0, 5.0).Shape();

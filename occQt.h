@@ -20,18 +20,21 @@
 
 #include <QThread>
 #include <QTimer>
+#include <QDebug>
 
 class OccView;
 
 class Thread: public QThread{
     Q_OBJECT
 public:
-    Thread(OccView* view, Handle(AIS_Shape) AIS_0,
-           Handle(AIS_Shape) AIS_1, int TIME);
+    Thread(OccView* view, AIS_Shape* AIS_0,
+           AIS_Shape* AIS_1, int TIME);
+    ~Thread();
 
     void run();
 
 private:
+
     OccView* myView;
     Handle(AIS_Shape) ais0, ais1;
 
@@ -42,7 +45,9 @@ private:
 
     int count = 0;
     int i = 0;
-private slots:
+public: signals:
+
+public slots:
     void UP();
 };
 

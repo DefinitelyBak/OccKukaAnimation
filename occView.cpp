@@ -552,12 +552,15 @@ void OccView::create_objects(){
 
 
 void OccView::update_joint_slider(){
+    for(int i = 0; i < 200; i++){
 
-    myTrsf0.SetRotation(gp_Ax1(gp_Pnt(1.5,0,0),gp_Dir(0,1,0)),deg_joint0 * M_PI /180);
+    myTrsf0.SetRotation(gp_Ax1(gp_Pnt(1.5,0,0),gp_Dir(0,1,0)),i * M_PI /180);
     myTrsf1.SetRotation(gp_Ax1(gp_Pnt(0,10.0,0),gp_Dir(0,0,1)),deg_joint1 * M_PI /180);
 
     ais_shape0->SetLocalTransformation(myTrsf0);
     ais_shape1->SetLocalTransformation(myTrsf0*myTrsf1);
 
     getContext()->CurrentViewer()->Redraw();
+    }
+
 }
