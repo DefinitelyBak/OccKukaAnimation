@@ -14,6 +14,8 @@
 
 #include <QOpenGLWidget>
 #include <QRubberBand>
+#include <QTimer>
+//#include <QDir>
 
 #include <AIS_InteractiveContext.hxx>
 
@@ -44,12 +46,6 @@ public:
     OccView(QWidget* parent);
 
     const Handle(AIS_InteractiveContext)& getContext() const;
-    void animation(Handle(AIS_Shape) anAisBox);
-
-    int deg_joint0, deg_joint1;
-
-    void update_joint_slider();
-
 signals:
     void selectionChanged(void);
 
@@ -99,11 +95,8 @@ protected:
     void drawRubberBand(const int minX, const int minY, const int maxX, const int maxY);
     void panByMiddleButton(const QPoint& thePoint);
 
-    //
-    void create_objects();
-
-
 private:
+    void loadStepFiles(std::string path);
 
     //! the occ viewer.
     Handle(V3d_Viewer) myViewer;
@@ -129,11 +122,10 @@ private:
     //! rubber rectangle for the mouse selection.
     QRubberBand* myRectBand;
 
+    QTimer animTimer;
 
-    TopoDS_Shape shape0, shape1;
-public:
-    Handle(AIS_Shape) ais_shape0, ais_shape1;
-    gp_Trsf myTrsf0, myTrsf1;
+    std::array<Handle(AIS_Shape), 6> AIS_shapes;
+    std::array<gp_Trsf,6> MyTrsf;
 };
 
 #endif // _OCCVIEW_H_

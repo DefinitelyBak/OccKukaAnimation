@@ -44,32 +44,6 @@
     <addaction name="actionReset"/>
     <addaction name="actionFitAll"/>
    </widget>
-   <widget class="QMenu" name="menuPrimitive">
-    <property name="title">
-     <string>Primitive</string>
-    </property>
-    <addaction name="actionBox"/>
-    <addaction name="actionCone"/>
-    <addaction name="actionSphere"/>
-    <addaction name="actionCylinder"/>
-    <addaction name="actionTorus"/>
-   </widget>
-   <widget class="QMenu" name="menuModeling">
-    <property name="title">
-     <string>Modeling</string>
-    </property>
-    <addaction name="actionFillet"/>
-    <addaction name="actionChamfer"/>
-    <addaction name="actionExtrude"/>
-    <addaction name="actionRevolve"/>
-    <addaction name="actionLoft"/>
-    <addaction name="separator"/>
-    <addaction name="actionCut"/>
-    <addaction name="actionFuse"/>
-    <addaction name="actionCommon"/>
-    <addaction name="separator"/>
-    <addaction name="actionHelix"/>
-   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
@@ -78,8 +52,6 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
-   <addaction name="menuPrimitive"/>
-   <addaction name="menuModeling"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

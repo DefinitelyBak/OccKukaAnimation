@@ -13,27 +13,32 @@
 
 class OccView;
 
-class Thread: public QThread{
+class Animation: public QThread{
+    Q_OBJECT
 public:
-    Thread(OccView* vvv, Handle(AIS_Shape) rrr);
+    Animation(OccView* view,std::array<Handle(AIS_Shape), 6>& aisShaps,
+              std::array<gp_Trsf,6>& MyTrsf);
 
     void run();
 
+    void setEndPoints(std::array<int, 6>  end_Q, int time);
 private:
-    OccView* myOccView;
-    Handle(AIS_Shape) anAisBox;
+    OccView* myView;
 
+    std::array<int, 6> start_Q;
+    std::array<double, 6> delta_Q;
+
+    std::array<Handle(AIS_Shape), 6>& aisShapes;
+    std::array<gp_Trsf,6>& MyTrsf;
+
+    int frames = 0;
     int count = 0;
-};
+signals:
+    //void startAnimation();
+    //void stopAnimation();
 
-
-class MyAnimation
-{
-public:
-    MyAnimation();
-
-private:
-
+public slots:
+    void redraw();
 };
 
 #endif // MYANIMATION_H

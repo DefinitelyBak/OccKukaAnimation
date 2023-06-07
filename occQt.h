@@ -13,44 +13,21 @@
 #define OCCQT_H
 
 #include "ui_occQt.h"
+#include "myanimation.h"
 
 #include <AIS_InteractiveContext.hxx>
 
 #include <AIS_Shape.hxx>
 
-#include <QThread>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+
 #include <QTimer>
 #include <QDebug>
+#include <QHBoxLayout>
 
 class OccView;
-
-class Thread: public QThread{
-    Q_OBJECT
-public:
-    Thread(OccView* view, AIS_Shape* AIS_0,
-           AIS_Shape* AIS_1, int TIME);
-    ~Thread();
-
-    void run();
-
-private:
-
-    OccView* myView;
-    Handle(AIS_Shape) ais0, ais1;
-
-    QTimer timer;
-
-    gp_Trsf myTrsf0, myTrsf1;
-
-
-    int count = 0;
-    int i = 0;
-public: signals:
-
-public slots:
-    void UP();
-};
-
 
 //! Qt main window which include OpenCASCADE for its central widget.
 class occQt : public QMainWindow
@@ -64,76 +41,47 @@ public:
 
 protected:
     //! create all the actions.
-    void createActions(void);
+    void createActions();
 
     //! create all the menus.
-    void createMenus(void);
+    void createMenus();
 
     //! create the toolbar.
-    void createToolBars(void);
+    void createToolBars();
 
-    //! make cylindrical helix.
-    void makeCylindricalHelix(void);
-
-    //! make conical helix.
-    void makeConicalHelix(void);
-
-    //! make toroidal helix.
-    void makeToroidalHelix(void);
+    //! create the MainWidget.
+    void createMainWidget();
 
 private slots:
     //! show about box.
-    void about(void);
-
-    //! make box test.
-    void makeBox(void);
-
-    //! make cone test.
-    void makeCone(void);
-
-    //! make sphere test.
-    void makeSphere(void);
-
-    //! make cylinder test.
-    void makeCylinder(void);
-
-    //! make torus test.
-    void makeTorus(void);
-
-    //! fillet test.
-    void makeFillet(void);
-
-    //! chamfer test.
-    void makeChamfer(void);
-
-    //! test extrude algorithm.
-    void makeExtrude(void);
-
-    //! test revol algorithm.
-    void makeRevol(void);
-
-    //! test loft algorithm.
-    void makeLoft(void);
-
-    //! test boolean operation cut.
-    void testCut(void);
-
-    //! test boolean operation fuse.
-    void testFuse(void);
-
-    //! test boolean operation common.
-    void testCommon(void);
-
-    //! test helix shapes.
-    void testHelix(void);
+    void about();
 
 private:
+    QLabel* lable_q1;
+    QLabel* lable_q2;
+    QLabel* lable_q3;
+    QLabel* lable_q4;
+    QLabel* lable_q5;
+    QLabel* lable_q6;
+    QLabel* lable_time;
+    QLineEdit* lineEdit_q1;
+    QLineEdit* lineEdit_q2;
+    QLineEdit* lineEdit_q3;
+    QLineEdit* lineEdit_q4;
+    QLineEdit* lineEdit_q5;
+    QLineEdit* lineEdit_q6;
+    QLineEdit* lineEdit_time;
+    QPushButton* ButtonStartAinmation;
+
+
     Ui::occQtClass ui;
 
     // wrapped the widget for occ.
     OccView* myOccView;
 
-    QThread* t1;
+    std::array<gp_Trsf,6> MyTrsf;
+
+    //QThread* t1;
 };
 
 #endif // OCCQT_H
