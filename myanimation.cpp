@@ -5,7 +5,7 @@ Animation::Animation(OccView* view, std::array<Handle(AIS_Shape), 6>& aisShaps,
                      std::array<gp_Trsf,6>& MyTrsf):
     myView(view), aisShapes(aisShapes), MyTrsf(MyTrsf)
 {
-    for(int& q: start_Q){
+    for(double& q: start_Q){
         q = 0;
     }
 }
@@ -17,14 +17,14 @@ void Animation::setEndPoints(std::array<int, 6>  end_Q, int time){
 
     frames = time * 60;
 
-    start_Q = end_Q;
+    //start_Q = end_Q;
 }
 
 void Animation::run(){
     while(count < frames);
 
     count = 0;
-    //emit stopAnimation();
+    emit stopAnimation();
 }
 
 void Animation::redraw(){

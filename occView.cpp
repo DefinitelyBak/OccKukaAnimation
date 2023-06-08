@@ -31,7 +31,7 @@
 
 #include <BRepPrimAPI_MakeBox.hxx>
 
-#include "TopoDS_Solid.hxx"
+#include <TopoDS_Solid.hxx>
 
 #define WNT
 
@@ -51,7 +51,6 @@
     #undef Expose
     #include <Xw_Window.hxx>
 #endif
-
 
 static Handle(Graphic3d_GraphicDriver)& GetGraphicDriver()
 {
@@ -81,7 +80,7 @@ OccView::OccView(QWidget* parent )
     setMouseTracking( true );
 
     init();
-    loadStepFiles("C:\\Users\\Halil\\Desktop\\Qtproject\\MyOcc\\robot");
+    loadStepFiles("C:/robot");
 }
 
 void OccView::init()
@@ -446,41 +445,34 @@ void OccView::panByMiddleButton( const QPoint& thePoint )
     myView->Pan(aCenterX - thePoint.x(), thePoint.y() - aCenterY);
 }
 
-
 void OccView::loadStepFiles(std::string path){
-    std::array<TopoDS_Shape, 6> solids;
-    Handle(AIS_Shape) ais_shape0,ais_shape1,ais_shape2,ais_shape3,ais_shape4,ais_shape5,ais_shape6,ais_shape7;
+    loadStepFile((path + "/kuka_base.step").c_str());
+    loadStepFile((path + "/kuka_joint_1.step").c_str());
+    loadStepFile((path + "/kuka_joint_2.step").c_str());
+    loadStepFile((path + "/kuka_joint_3.step").c_str());
+    loadStepFile((path + "/kuka_joint_4.step").c_str());
+    loadStepFile((path + "/kuka_joint_5.step").c_str());
+    loadStepFile((path + "/kuka_joint_6.step").c_str());
 
-    gp_Trsf myTrsf0,myTrsf1,myTrsf2,myTrsf3,myTrsf4,myTrsf5,myTrsf6;
-
-    STEPControl_Reader Reader0, Reader1, Reader2, Reader3, Reader4, Reader5, Reader6;
-
-    Reader0.ReadFile((path + "\\kuka_base.step").c_str() );
-    Reader1.ReadFile((path + "\\kuka_joint_1.step").c_str());
-    Reader2.ReadFile((path + "\\kuka_joint_2.step").c_str());
-    Reader3.ReadFile((path + "\\kuka_joint_3.step").c_str());
-    Reader4.ReadFile((path + "\\kuka_joint_4.step").c_str());
-    Reader5.ReadFile((path + "\\kuka_joint_5.step").c_str());
-    Reader6.ReadFile((path + "\\kuka_joint_6.step").c_str());
-
-    solids[0] = Reader0.OneShape();
-    solids[1] = Reader1.OneShape();
-    solids[2] = Reader2.OneShape();
-    solids[3] = Reader3.OneShape();
-    solids[4] = Reader4.OneShape();
-    solids[5] = Reader5.OneShape();
-    solids[6] = Reader6.OneShape();
-
-
-    for (int i = 0; i < 6; i++){
-        AIS_shapes[i] =new AIS_Shape(solids[i]);
-    }
-
-    for (int i = 0; i < 6; i++){
-        myContext->Display(AIS_shapes[i],Standard_True);
-    }
 
     myView->FitAll();
+}
+
+
+void OccView::loadStepFile(const char* path){
+    STEPControl_Reader Reader;
+
+    if (Reader.ReadFile(path) == IFSelect_RetDone)
+        qDebug() << "step file loaded! WIN WIN WIN";
+
+    qDebug() << Reader.TransferRoots() << " Reader roots transferred.";
+
+    TopoDS_Shape temp_shape = Reader.OneShape();
+
+    AIS_shapes[countAisLoadedShapes] = new AIS_Shape(temp_shape);
+    myContext->Display(AIS_shapes[countAisLoadedShapes],Standard_False);
+
+    countAisLoadedShapes++;
 }
 
 

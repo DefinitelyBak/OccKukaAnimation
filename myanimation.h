@@ -25,7 +25,8 @@ public:
 private:
     OccView* myView;
 
-    std::array<int, 6> start_Q;
+    std::array<double, 6> start_Q;
+    std::array<double, 6> current_Q;
     std::array<double, 6> delta_Q;
 
     std::array<Handle(AIS_Shape), 6>& aisShapes;
@@ -35,7 +36,7 @@ private:
     int count = 0;
 signals:
     //void startAnimation();
-    //void stopAnimation();
+    void stopAnimation();
 
 public slots:
     void redraw();

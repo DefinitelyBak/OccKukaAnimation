@@ -20,5 +20,5 @@ int main(int argc, char *argv[])
     occQt w;
     w.show();
 
-     return a.exec();
+    return a.exec();
 }

@@ -97,6 +97,7 @@ protected:
 
 private:
     void loadStepFiles(std::string path);
+    void loadStepFile(const char* path);
 
     //! the occ viewer.
     Handle(V3d_Viewer) myViewer;
@@ -124,8 +125,10 @@ private:
 
     QTimer animTimer;
 
-    std::array<Handle(AIS_Shape), 6> AIS_shapes;
-    std::array<gp_Trsf,6> MyTrsf;
+    std::array<Handle(AIS_Shape), 7> AIS_shapes;
+    std::array<gp_Trsf,7> MyTrsf;
+
+    int countAisLoadedShapes = 0;
 };
 
 #endif // _OCCVIEW_H_
