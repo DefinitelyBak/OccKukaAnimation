@@ -29,7 +29,8 @@ FORMS    += \
 RESOURCES += \
     .qrc
 
-CASROOT = "C:\\Users\\lea-k\\Desktop\\Visual code\\OpenCASCADE-7.7.0-vc14-64\\opencascade-7.7.0"
+#CASROOT = "C:\\Users\\lea-k\\Desktop\\Visual code\\OpenCASCADE-7.7.0-vc14-64\\opencascade-7.7.0"
+ CASROOT = "D:\\Programs\\OpenCASCADE-7.7.0-vc14-64\\opencascade-7.7.0"
 
 INCLUDEPATH += $${CASROOT}/inc
 LIBS += -L$${CASROOT}/win64/vc14/lib/

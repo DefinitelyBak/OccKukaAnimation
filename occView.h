@@ -12,6 +12,8 @@
 #ifndef _OCCVIEW_H_
 #define _OCCVIEW_H_
 
+#include "myanimation.h"
+
 #include <QOpenGLWidget>
 #include <QRubberBand>
 #include <QTimer>
@@ -57,6 +59,8 @@ public slots:
     void zoom(void);
     void rotate(void);
 
+    //slot started animation.
+    void slotStartAnim(std::array<double, 8>);
 protected:
     virtual QPaintEngine* paintEngine() const;
 
@@ -99,6 +103,9 @@ private:
     void loadStepFiles(std::string path);
     void loadStepFile(const char* path);
 
+    void initAxis();
+
+
     //! the occ viewer.
     Handle(V3d_Viewer) myViewer;
 
@@ -124,11 +131,10 @@ private:
     QRubberBand* myRectBand;
 
     QTimer animTimer;
+    Animation* AnimThread;
 
     std::array<Handle(AIS_Shape), 7> AIS_shapes;
-    std::array<gp_Trsf,7> MyTrsf;
-
-    int countAisLoadedShapes = 0;
+    std::array<gp_Ax1, 7> myAx;
 };
 
 #endif // _OCCVIEW_H_

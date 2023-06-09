@@ -85,7 +85,11 @@ occQt::~occQt()
 
 void occQt::createActions()
 {
-    //PushButton
+    //Push button
+    connect(ButtonStartAinmation, &QPushButton::clicked, this, &occQt::PushButton);
+
+    //Start animation
+    connect(this, &occQt::InitAnimation, myOccView, &OccView::slotStartAnim);
 
     // File
     connect(ui.actionExit, SIGNAL(triggered()), this, SLOT(close()));
@@ -180,4 +184,21 @@ void occQt::about()
         tr("<h2>occQt 2.0</h2>"
         "<p>Copyright &copy; 2014 eryar@163.com"
         "<p>occQt is a demo applicaton about Qt and OpenCASCADE."));
+}
+
+//Signals
+
+void occQt::PushButton(){
+    std::array<double, 8> input_Q;
+    qDebug() << (input_Q[0] = 0);
+    qDebug() << (input_Q[1] = lineEdit_q1->displayText().toDouble() );
+    qDebug() << (input_Q[2] = lineEdit_q2->displayText().toDouble() );
+    qDebug() << (input_Q[3] = lineEdit_q3->displayText().toDouble() );
+    qDebug() << (input_Q[4] = lineEdit_q4->displayText().toDouble() );
+    qDebug() << (input_Q[5] = lineEdit_q5->displayText().toDouble() );
+    qDebug() << (input_Q[6] = lineEdit_q6->displayText().toDouble() );
+    qDebug() << (input_Q[7] =lineEdit_time->displayText().toDouble());
+
+
+    emit InitAnimation(input_Q);
 }

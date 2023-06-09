@@ -80,7 +80,22 @@ OccView::OccView(QWidget* parent )
     setMouseTracking( true );
 
     init();
-    loadStepFiles("C:/robot");
+    //loadStepFiles("C:/robot");
+    loadStepFiles("C:/Users/Halil/Desktop/Qtproject/MyOcc/robot");
+    //
+    initAxis();
+    //
+    AnimThread = new Animation(this, AIS_shapes, myAx);
+
+
+    // Позже засуну в функцию
+    //
+    connect(&animTimer, &QTimer::timeout, AnimThread, &Animation::redraw);
+
+    //Сигналы от потока с анимацией.
+    connect(AnimThread, &Animation::startAnimation,this, [&](){animTimer.start(1000/60);});
+    connect(AnimThread, &Animation::stopAnimation, this, [&](){animTimer.stop();});
+
 }
 
 void OccView::init()
@@ -460,6 +475,8 @@ void OccView::loadStepFiles(std::string path){
 
 
 void OccView::loadStepFile(const char* path){
+    static int countAisLoadedShapes = 0;
+
     STEPControl_Reader Reader;
 
     if (Reader.ReadFile(path) == IFSelect_RetDone)
@@ -475,5 +492,25 @@ void OccView::loadStepFile(const char* path){
     countAisLoadedShapes++;
 }
 
+void OccView::initAxis(){
+    myAx[0] = gp_Ax1(gp_Pnt(0,0,0),gp_Dir(0,0,1));
+    myAx[1] = gp_Ax1(gp_Pnt(0,0,0),gp_Dir(0,0,1));
+    myAx[2] = gp_Ax1(gp_Pnt(25,0,400),gp_Dir(0,1,0));
+    myAx[3] = gp_Ax1(gp_Pnt(25,0,855),gp_Dir(0,1,0));
+    myAx[4] = gp_Ax1(gp_Pnt(25,0,890),gp_Dir(1,0,0));
+    myAx[5] = gp_Ax1(gp_Pnt(445,0,890),gp_Dir(0,1,0));
+    myAx[6] = gp_Ax1(gp_Pnt(445,0,890),gp_Dir(1,0,0));
+}
 
+void OccView::slotStartAnim(std::array<double, 8> inputData){
+
+    std::array<double, 7> endPointsQ;
+
+    for(int i = 0; i < 7; i++){
+        endPointsQ[i] = inputData[i];
+    }
+
+    AnimThread->setEndPoints(endPointsQ, inputData[7]);
+    //AnimThread->start();
+}
 

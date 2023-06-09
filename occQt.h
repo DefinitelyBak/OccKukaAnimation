@@ -56,6 +56,12 @@ private slots:
     //! show about box.
     void about();
 
+    //
+    void PushButton();
+
+signals:
+    void InitAnimation(std::array<double, 8>);
+
 private:
     QLabel* lable_q1;
     QLabel* lable_q2;
@@ -79,9 +85,7 @@ private:
     // wrapped the widget for occ.
     OccView* myOccView;
 
-    std::array<gp_Trsf,6> MyTrsf;
-
-    //QThread* t1;
+    //
 };
 
 #endif // OCCQT_H
