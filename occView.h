@@ -23,6 +23,7 @@
 
 #include <AIS_Shape.hxx>
 
+class Animation;
 class QMenu;
 class QRubberBand;
 

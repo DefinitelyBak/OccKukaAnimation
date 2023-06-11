@@ -80,8 +80,8 @@ OccView::OccView(QWidget* parent )
     setMouseTracking( true );
 
     init();
-    //loadStepFiles("C:/robot");
-    loadStepFiles("C:/Users/Halil/Desktop/Qtproject/MyOcc/robot");
+    loadStepFiles("C:/robot");
+    //loadStepFiles("C:/Users/Halil/Desktop/Qtproject/MyOcc/robot");
     //
     initAxis();
     //
@@ -95,7 +95,6 @@ OccView::OccView(QWidget* parent )
     //Сигналы от потока с анимацией.
     connect(AnimThread, &Animation::startAnimation,this, [&](){animTimer.start(1000/60);});
     connect(AnimThread, &Animation::stopAnimation, this, [&](){animTimer.stop();});
-
 }
 
 void OccView::init()
@@ -506,11 +505,14 @@ void OccView::slotStartAnim(std::array<double, 8> inputData){
 
     std::array<double, 7> endPointsQ;
 
+    qDebug() << "from occView.cpp with love";
+
     for(int i = 0; i < 7; i++){
-        endPointsQ[i] = inputData[i];
+        qDebug() <<  (endPointsQ[i] = inputData[i]);
     }
 
+    qDebug() << inputData[7];
     AnimThread->setEndPoints(endPointsQ, inputData[7]);
-    //AnimThread->start();
+    AnimThread->start();
 }
 

@@ -2,6 +2,8 @@
 #ifndef MYANIMATION_H
 #define MYANIMATION_H
 
+#include "occView.h"
+
 #include <AIS_InteractiveContext.hxx>
 
 #include <AIS_Shape.hxx>
