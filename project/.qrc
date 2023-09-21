@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/box.png</file>
+        <file>Resources/chamfer.png</file>
+        <file>Resources/common.png</file>
+        <file>Resources/cone.png</file>
+        <file>Resources/cut.png</file>
+        <file>Resources/cylinder.png</file>
+        <file>Resources/extrude.png</file>
+        <file>Resources/fillet.png</file>
+        <file>Resources/FitAll.png</file>
+        <file>Resources/fuse.png</file>
+        <file>Resources/helix.png</file>
+        <file>Resources/Home.png</file>
+        <file>Resources/lamp.png</file>
+        <file>Resources/loft.png</file>
+        <file>Resources/Pan.png</file>
+        <file>Resources/Play.png</file>
+        <file>Resources/revolve.png</file>
+        <file>Resources/Rotate.png</file>
+        <file>Resources/sphere.png</file>
+        <file>Resources/torus.png</file>
+        <file>Resources/wedge.png</file>
+        <file>Resources/Zoom.png</file>
+        <file>robot/kuka_base.step</file>
+        <file>robot/kuka_joint_1.step</file>
+        <file>robot/kuka_joint_2.step</file>
+        <file>robot/kuka_joint_3.step</file>
+        <file>robot/kuka_joint_4.step</file>
+        <file>robot/kuka_joint_5.step</file>
+        <file>robot/kuka_joint_6.step</file>
+    </qresource>
+</RCC>
